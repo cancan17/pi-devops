@@ -9,10 +9,10 @@ use App\Models\Reminder;
 class ReminderController extends Controller
 {
     //get all reminders
-    public function index($user_id) 
+    public function index() 
     {
         return response([
-            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', $user_id)->get()
+            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', auth()->user()->id)->get()
         ], 200);
     }
 
@@ -33,8 +33,8 @@ class ReminderController extends Controller
             'description' => 'nullable|string',
             'type' => 'required|integer',
             'alert' => 'nullable|date',
-            'repeat' => 'nullable|numeric',
-            'duration' => 'nullable|integer'
+            'repeat' => 'nullable|string',
+            'duration' => 'nullable|date'
         ]);
 
         $reminder = Reminder::create([
