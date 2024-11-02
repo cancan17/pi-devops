@@ -80,4 +80,20 @@ class AuthControllerTest extends TestCase
      
         $response->assertStatus(200);
     }
+
+    public function test_update_user()
+    {
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+     
+        $response = $this->put('/api/user', [
+            'email' => 'test@example.com',
+            'name' => 'test',
+            'password' => 'secret',
+        ]);
+     
+        $response->assertStatus(200);
+    }
 }
