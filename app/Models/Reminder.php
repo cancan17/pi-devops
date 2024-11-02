@@ -19,6 +19,7 @@ class Reminder extends Model
         'alert',
         'repeat',
         'duration',
+        'color',
     ];
 
     public function user()

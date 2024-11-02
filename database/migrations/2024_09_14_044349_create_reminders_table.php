@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->integer('type');
+            $table->string('color')->nullable();
             $table->datetime('alert')->nullable();
             $table->string('repeat')->nullable();
             $table->datetime('duration')->nullable();
