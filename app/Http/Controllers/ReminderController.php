@@ -32,15 +32,17 @@ class ReminderController extends Controller
             'title' => 'required|string',
             'description' => 'nullable|string',
             'type' => 'required|integer',
+            'color' => 'nullable|string',
             'alert' => 'nullable|date',
             'repeat' => 'nullable|string',
-            'duration' => 'nullable|date'
+            'duration' => 'nullable|date',
         ]);
 
         $reminder = Reminder::create([
             'title' => $attrs['title'],
             'description' => $attrs['description'],
             'type' => $attrs['type'],
+            'color' => $attrs['color'],
             'alert' => $attrs['alert'],
             'repeat' => $attrs['repeat'],
             'duration' => $attrs['duration'],
