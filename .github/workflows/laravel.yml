@@ -35,7 +35,7 @@ jobs:
       run: php artisan test
 
   code-quality:
-
+    needs: laravel-tests
     runs-on: ubuntu-latest
 
     steps:
