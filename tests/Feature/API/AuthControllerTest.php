@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\API;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -21,17 +20,17 @@ class AuthControllerTest extends TestCase
     public function test_successful_registration()
     {
         $userData = [
-            "name" => 'test',
-            "email" => 'test@example.com',
-            "password" => "123456",
-            "password_confirmation" => "123456"
+            'name' => 'test',
+            'email' => 'test@example.com',
+            'password' => '123456',
+            'password_confirmation' => '123456',
         ];
 
         $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
             ->assertStatus(200)
             ->assertJsonStructure([
-                "user" => ['id', 'name', 'email', 'created_at', 'updated_at'],
-                "token"
+                'user' => ['id', 'name', 'email', 'created_at', 'updated_at'],
+                'token',
             ]);
     }
 
@@ -63,9 +62,9 @@ class AuthControllerTest extends TestCase
             User::factory()->create(),
             ['*']
         );
-     
+
         $response = $this->post('/api/logout');
-     
+
         $response->assertStatus(200);
     }
 
@@ -75,9 +74,9 @@ class AuthControllerTest extends TestCase
             User::factory()->create(),
             ['*']
         );
-     
+
         $response = $this->get('/api/user');
-     
+
         $response->assertStatus(200);
     }
 
@@ -87,13 +86,13 @@ class AuthControllerTest extends TestCase
             User::factory()->create(),
             ['*']
         );
-     
+
         $response = $this->put('/api/user', [
             'email' => 'test@example.com',
             'name' => 'test',
             'password' => 'secret',
         ]);
-     
+
         $response->assertStatus(200);
     }
 }
