@@ -13,10 +13,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // user
     Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/user', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // reminders
-    Route::get('/reminders/{user_id}', [ReminderController::class, 'index']); // all user reminders
+    Route::get('/reminders', [ReminderController::class, 'index']); // all user reminders
     Route::post('/reminders', [ReminderController::class, 'store']); // create reminder
     Route::get('/reminders/{id}', [ReminderController::class, 'show']); // get single reminder
     Route::put('/reminders/{id}', [ReminderController::class, 'update']); // update reminder
