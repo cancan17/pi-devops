@@ -8,17 +8,10 @@ use Illuminate\Http\Request;
 class ReminderController extends Controller
 {
     //get all reminders
-<<<<<<< HEAD
-    public function index($user_id)
+    public function index()
     {
         return response([
-            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', $user_id)->get(),
-=======
-    public function index() 
-    {
-        return response([
-            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', auth()->user()->id)->get()
->>>>>>> 76c8d0cf1d69a2d2945da560c2f92be4eb03330d
+            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', auth()->user()->id)->get(),
         ], 200);
     }
 
@@ -40,13 +33,8 @@ class ReminderController extends Controller
             'type' => 'required|integer',
             'color' => 'nullable|string',
             'alert' => 'nullable|date',
-<<<<<<< HEAD
-            'repeat' => 'nullable|numeric',
-            'duration' => 'nullable|integer',
-=======
             'repeat' => 'nullable|string',
             'duration' => 'nullable|date',
->>>>>>> 76c8d0cf1d69a2d2945da560c2f92be4eb03330d
         ]);
 
         $reminder = Reminder::create([
