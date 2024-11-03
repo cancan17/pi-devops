@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Reminder;
+use Illuminate\Http\Request;
 
 class ReminderController extends Controller
 {
     //get all reminders
-    public function index($user_id) 
+    public function index($user_id)
     {
         return response([
-            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', $user_id)->get()
+            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', $user_id)->get(),
         ], 200);
     }
 
     // show single reminder
-    public function show($id) 
+    public function show($id)
     {
         return response([
-            'reminder' => Reminder::where('id', $id)->get()
+            'reminder' => Reminder::where('id', $id)->get(),
         ], 200);
     }
 
     // crete a reminder
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         // validate filds
         $attrs = $request->validate([
@@ -34,7 +33,7 @@ class ReminderController extends Controller
             'type' => 'required|integer',
             'alert' => 'nullable|date',
             'repeat' => 'nullable|numeric',
-            'duration' => 'nullable|integer'
+            'duration' => 'nullable|integer',
         ]);
 
         $reminder = Reminder::create([
@@ -44,31 +43,29 @@ class ReminderController extends Controller
             'alert' => $attrs['alert'],
             'repeat' => $attrs['repeat'],
             'duration' => $attrs['duration'],
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
         ]);
 
         return response([
             'message' => 'Reminder created.',
-            'reminder' => $reminder
+            'reminder' => $reminder,
         ], 200);
     }
 
     // update a reminder
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         $reminder = Reminder::find($id);
 
-        if(!$reminder)
-        {
+        if (! $reminder) {
             return response([
-                'message' => 'Reminder not found.'
+                'message' => 'Reminder not found.',
             ], 403);
         }
 
-        if($reminder->user_id != auth()->user()->id)
-        {
+        if ($reminder->user_id != auth()->user()->id) {
             return response([
-                'message' => 'Permission denied.'
+                'message' => 'Permission denied.',
             ], 403);
         }
 
@@ -79,7 +76,7 @@ class ReminderController extends Controller
             'type' => 'required|integer',
             'alert' => 'nullable|string',
             'repeat' => 'nullable|string',
-            'duration' => 'nullable|integer'
+            'duration' => 'nullable|integer',
         ]);
 
         $reminder->update([
@@ -88,38 +85,36 @@ class ReminderController extends Controller
             'type' => $attrs['type'],
             'alert' => $attrs['alert'],
             'repeat' => $attrs['repeat'],
-            'duration' => $attrs['duration']
+            'duration' => $attrs['duration'],
         ]);
 
         return response([
             'message' => 'Reminder updated.',
-            'reminder' => $reminder
+            'reminder' => $reminder,
         ], 200);
     }
 
-        // delete reminder
-        public function destroy($id) 
-        {
-            $reminder = Reminder::find($id);
-    
-            if(!$reminder)
-            {
-                return response([
-                    'message' => 'Reminder not found.'
-                ], 403);
-            }
-    
-            if($reminder->user_id != auth()->user()->id)
-            {
-                return response([
-                    'message' => 'Permission denied.'
-                ], 403);
-            }
+    // delete reminder
+    public function destroy($id)
+    {
+        $reminder = Reminder::find($id);
 
-            $reminder->delete();
-    
+        if (! $reminder) {
             return response([
-                'message' => 'Reminder deleted.',
-            ], 200);
+                'message' => 'Reminder not found.',
+            ], 403);
         }
+
+        if ($reminder->user_id != auth()->user()->id) {
+            return response([
+                'message' => 'Permission denied.',
+            ], 403);
+        }
+
+        $reminder->delete();
+
+        return response([
+            'message' => 'Reminder deleted.',
+        ], 200);
+    }
 }
