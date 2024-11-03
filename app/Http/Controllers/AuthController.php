@@ -72,9 +72,6 @@ class AuthController extends Controller
             'user' => auth()->user(),
         ], 200);
     }
-<<<<<<< HEAD
-}
-=======
 
     // update user
     public function update(Request $request)
@@ -96,4 +93,3 @@ class AuthController extends Controller
         ], 200);
     }
 }
->>>>>>> 76c8d0cf1d69a2d2945da560c2f92be4eb03330d
