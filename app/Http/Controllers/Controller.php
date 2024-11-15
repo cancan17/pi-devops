@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\URL;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     public function saveImage($image, $path = 'public')
     {

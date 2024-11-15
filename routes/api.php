@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReminderController;
-use App\Http\Controllers\ReminderHistoryController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
