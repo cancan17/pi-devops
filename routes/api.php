@@ -22,5 +22,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/reminders/{id}', [ReminderController::class, 'show']); // get single reminder
     Route::put('/reminders/{id}', [ReminderController::class, 'update']); // update reminder
     Route::delete('/reminders/{id}', [ReminderController::class, 'destroy']); // delete reminder
-
+    Route::delete('/reminders', [ReminderController::class, 'deleteTrashedReminders']); // delete history
 });
