@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reminder;
+use App\Models\ReminderHistory;
 use Illuminate\Http\Request;
 
 class ReminderController extends Controller
@@ -11,7 +12,7 @@ class ReminderController extends Controller
     public function index()
     {
         return response([
-            'reminders' => Reminder::orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', auth()->user()->id)->get(),
+            'reminders' => Reminder::withTrashed()->orderBy('created_at', 'desc')->with('user:id,name')->where('user_id', auth()->user()->id)->get(),
         ], 200);
     }
 
@@ -118,5 +119,23 @@ class ReminderController extends Controller
         return response([
             'message' => 'Reminder deleted.',
         ], 200);
+    }
+
+    public function deleteTrashedReminders()
+    {
+       $trashedReminders =  Reminder::onlyTrashed()->where('user_id', auth()->user()->id);
+
+       if ($trashedReminders->count() == 0){
+            return response([
+                'message' => "There's no reminders to delete in history.",
+            ], 403);
+       }
+
+        $trashedReminders->forceDelete();
+
+        return response([
+            'message' => 'History deleted.',
+        ], 200);
+
     }
 }

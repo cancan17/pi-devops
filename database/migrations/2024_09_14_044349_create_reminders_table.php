@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->constrained('users');
             $table->string('title');
             $table->string('description')->nullable();
             $table->integer('type');
