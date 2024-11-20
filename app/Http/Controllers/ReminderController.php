@@ -76,9 +76,9 @@ class ReminderController extends Controller
             'title' => 'required|string',
             'description' => 'nullable|string',
             'type' => 'required|integer',
-            'alert' => 'nullable|string',
+            'alert' => 'nullable|date',
             'repeat' => 'nullable|string',
-            'duration' => 'nullable|integer',
+            'duration' => 'nullable|date',
         ]);
 
         $reminder->update([
